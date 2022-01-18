@@ -9,9 +9,10 @@ import (
 
 func main() {
 	array := []int{1, 2, 3, 4, 5, 6, 7}
-	const target = 6
+	const target = 2
 
-	result := BinarySearch(array, target)
+	// result := BinarySearch(array, target)
+	result := BinarySearchRec(array, 0, len(array)-1, target)
 	fmt.Println(result)
 }
 
@@ -32,4 +33,22 @@ func BinarySearch(array []int, target int) int {
 
 	}
 	return -1
+}
+
+// Recursive binary search in go
+func BinarySearchRec(array []int, left, right, target int) int {
+	if left > right {
+		return -1
+	}
+
+	mid := (left + right) / 2
+	value := array[mid]
+
+	if value == target {
+		return mid
+	} else if value > target {
+		return BinarySearchRec(array, left, mid-1, target)
+	} else {
+		return BinarySearchRec(array, mid+1, right, target)
+	}
 }
